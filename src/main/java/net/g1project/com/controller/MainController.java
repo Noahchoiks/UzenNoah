@@ -1,5 +1,6 @@
 package net.g1project.com.controller;
 
+import net.g1project.com.constants.G1WebConstants;
 import net.g1project.com.controller.abstact.AbstractG1PageController;
 import net.g1project.com.mnv.G1ModelAndView;
 
@@ -18,9 +19,13 @@ public class MainController extends AbstractG1PageController{
 	@RequestMapping(value = "index")
 	public ModelAndView index() {
 		
+		
+		
 		G1ModelAndView gmv = new G1ModelAndView();
+		gmv.setHeaderView(G1WebConstants.G1_LAYOUT_HEADER);
 		gmv.setContentsView(MAIN_CONTENTS_VIEW);
 		gmv.setContentsController(MAIN_CONTENTS_CONTROLLER);
+		gmv.setFooterView(G1WebConstants.G1_LAYOUT_FOOTER);
 		
 		return createPage(gmv);
 	}

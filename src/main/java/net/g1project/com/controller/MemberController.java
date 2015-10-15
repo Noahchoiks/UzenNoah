@@ -1,5 +1,6 @@
 package net.g1project.com.controller;
 
+import net.g1project.com.constants.G1WebConstants;
 import net.g1project.com.controller.abstact.AbstractG1PageController;
 import net.g1project.com.mnv.G1ModelAndView;
 
@@ -21,6 +22,8 @@ public class MemberController extends AbstractG1PageController {
 	public ModelAndView member() {
 
 		G1ModelAndView gmv = new G1ModelAndView();
+		gmv.setHeaderView(G1WebConstants.G1_LAYOUT_HEADER);
+		gmv.setFooterView(G1WebConstants.G1_LAYOUT_FOOTER);
 		gmv.setContentsView(MEMBER_CONTENTS_VIEW);
 		gmv.setContentsController(MEMBER_CONTENTS_CONTROLLER);
 
@@ -34,6 +37,8 @@ public class MemberController extends AbstractG1PageController {
 
 
 		G1ModelAndView gmv = new G1ModelAndView();
+		gmv.setHeaderView(G1WebConstants.G1_LAYOUT_HEADER);
+		gmv.setFooterView(G1WebConstants.G1_LAYOUT_FOOTER);
 		gmv.setContentsView(MEMBER_JOIN_CONTENTS_VIEW);
 		gmv.setContentsController(MEMBER_JOIN_CONTENTS_CONTROLLER);
 

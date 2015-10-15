@@ -10,23 +10,53 @@
 
 </head>
 <body>
+	<!-- Common -->
 	<script src="https://code.angularjs.org/1.4.7/angular.js"></script>
 	<script src="https://code.angularjs.org/1.4.7/angular-route.js"></script>
-	<link rel="stylesheet"	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	
+	<!-- CSS Layer -->
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
-	<c:forEach var="controller" items="${G1_CONTETS_VIEW_CONTROLLERS}">
-		<script src='<c:url value="/static/js/controller/${controller}.js"/>'></script>
-	</c:forEach>
 	<!-- HEADER -->
-	<div id="header"></div>
+	<div id="header">
+		<c:if test="${not empty G1_HEADER_CONTENTS_VIEW_CONTROLLERS}">
+			<c:forEach var="controller"
+				items="${G1_HEADER_CONTENTS_VIEW_CONTROLLERS}">
+				<script
+					src='<c:url value="/static/js/controller/${controller}.js"/>'></script>
+			</c:forEach>
+		</c:if>
+		<jsp:include
+			page="/WEB-INF/views/includePage/${G1_HEADER_CONTENTS_VIEW_NAME}.jsp"></jsp:include>
+	</div>
 	<!-- /HEADER -->
+
 	<!-- BODY CONTENTS -->
 	<div id="contets">
-		<jsp:include page="/WEB-INF/views/includePage/${G1_CONTENTS_VIEW_NAME}.jsp"></jsp:include>
+		<c:if test="${not empty G1_CONTETS_VIEW_CONTROLLERS}">
+			<c:forEach var="controller" items="${G1_CONTETS_VIEW_CONTROLLERS}">
+				<script
+					src='<c:url value="/static/js/controller/${controller}.js"/>'></script>
+			</c:forEach>
+		</c:if>
+		<jsp:include
+			page="/WEB-INF/views/includePage/${G1_CONTENTS_VIEW_NAME}.jsp"></jsp:include>
 	</div>
 	<!-- /BODY CONTENTS -->
+
 	<!-- FOOTER -->
-	<div id="footer"></div>
+	<div id="footer">
+		<c:if test="${not empty G1_FOOTER_CONTENTS_VIEW_CONTROLLERS}">
+			<c:forEach var="controller"
+				items="${G1_FOOTER_CONTENTS_VIEW_CONTROLLERS}">
+				<script
+					src='<c:url value="/static/js/controller/${controller}.js"/>'></script>
+			</c:forEach>
+		</c:if>
+		<jsp:include
+			page="/WEB-INF/views/includePage/${G1_FOOTER_CONTENTS_VIEW_NAME}.jsp"></jsp:include>
+	</div>
 	<!-- /FOOTER  -->
 </body>
 </html>
