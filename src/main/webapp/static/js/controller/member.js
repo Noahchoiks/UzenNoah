@@ -29,8 +29,8 @@ memberMode.controller('MemberRegisterController', [ '$scope', '$http',
 				res.success(function(data, status, headers, config) {
 					if (data.result) {
 						alert("SUCCESS");
-						$location.path('/confirm');
 						memberTemp = dataObj;
+						$location.path('/confirm');
 					} else {
 						alert("FAILED : Duplicate ID");
 					}
