@@ -11,15 +11,36 @@ memberMode.factory('MemberService', function() {
 	};
 });
 
+memberMode.service('ValidationService', function($http, $log) {
+	this.getValidInfoForVO = function(voName) {
+		var promise = $http.get('/valid/' + voName).success(
+				function(data, status, headers, config) {
+					$log.log(data);
+					validInfos = data;
+					return validInfos;
+				});
+		return promise;
+	};
+	var validInfos = {};
+});
+
 memberMode.controller('MemberRegisterController', [
 		'$scope',
 		'$http',
 		'$location',
 		'MemberService',
+		'ValidationService',
 		function MemberRegisterController($scope, $http, $location,
-				MemberService) {
+				MemberService, ValidationService) {
+
+			init();
+			function init() {
+				ValidationService.getValidInfoForVO('MemberVO').then(
+						function(response) {
+							$scope.valid = response.data;
+						});
+			}
 			var memberTemp = MemberService.memberTemp;
-			var validData = null;
 
 			$scope.memberTemp = memberTemp;
 			$scope.confirmPassword = '';
@@ -49,32 +70,6 @@ memberMode.controller('MemberRegisterController', [
 				});
 			};
 
-			var validList = [ 'id', 'name', 'sex' ];
-			$scope.valid = validate(this.constructor.name, validList);
-
-			function validate(controllerName, targetValue) {
-				var requestJson = {
-					controllerName : controllerName,
-					validList : targetValue
-				}
-
-				var res = $http.post('/valid', requestJson);
-				res.success(function(data, status, headers, config) {
-					alert(JSON.stringify(data));
-					validData = data;
-				});
-				res.error(function(data, status, headers, config) {
-					// convert Object to String
-					alert("failure message: Unknown Error" + JSON.stringify({
-						data : data
-					}));
-				});
-				alert(JSON.stringify(validData));
-				return {
-					valid : validData
-				};
-			}
-			;
 		} ]);
 memberMode.controller('MemberConfirmController', [ '$scope', '$http',
 		'$window', '$location', 'MemberService',

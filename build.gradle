@@ -37,10 +37,12 @@ dependencies {
 	compile 'commons-lang:commons-lang:2.1'
     compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.0'
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-data-rest")    
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
     providedRuntime("org.apache.tomcat.embed:tomcat-embed-jasper")
     providedRuntime("org.apache.tomcat.embed:tomcat-embed-el")
     compile("javax.servlet:jstl")    
+    
 }
 
 eclipse {

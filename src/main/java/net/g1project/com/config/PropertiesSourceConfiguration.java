@@ -22,7 +22,6 @@ public class PropertiesSourceConfiguration {
         messageSource.setDefaultEncoding("UTF-8");
         messageSource.setCacheSeconds(60);
         messageSource.setBasename("classpath:validation/validation");
-        messageSource.setUseCodeAsDefaultMessage(true);
         return messageSource;
     }
 }
