@@ -1,15 +1,19 @@
-package net.g1project.com.controller.abstact;
+package net.g1project.com.controller.abstractController;
 
 import net.g1project.com.constants.G1WebConstants;
 import net.g1project.com.mnv.G1ModelAndView;
 import net.g1project.com.service.DummyService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 
 public class AbstractG1PageController {
 
+	public Logger logger = LoggerFactory.getLogger(getClass());
+	
 	@Autowired
 	protected DummyService dummyService;
 

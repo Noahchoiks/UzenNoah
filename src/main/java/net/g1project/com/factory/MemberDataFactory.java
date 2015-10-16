@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/factory")
-public class DataFactory {
+public class MemberDataFactory {
 
 	@Autowired
 	private DummyService dummyService;

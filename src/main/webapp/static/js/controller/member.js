@@ -11,10 +11,16 @@ memberMode.factory('MemberService', function() {
 	};
 });
 
-memberMode.controller('MemberRegisterController', [ '$scope', '$http',
-		'$location', 'MemberService',
-		function($scope, $http, $location, MemberService) {
+memberMode.controller('MemberRegisterController', [
+		'$scope',
+		'$http',
+		'$location',
+		'MemberService',
+		function MemberRegisterController($scope, $http, $location,
+				MemberService) {
 			var memberTemp = MemberService.memberTemp;
+			var validData = null;
+
 			$scope.memberTemp = memberTemp;
 			$scope.confirmPassword = '';
 
@@ -42,6 +48,33 @@ memberMode.controller('MemberRegisterController', [ '$scope', '$http',
 					}));
 				});
 			};
+
+			var validList = [ 'id', 'name', 'sex' ];
+			$scope.valid = validate(this.constructor.name, validList);
+
+			function validate(controllerName, targetValue) {
+				var requestJson = {
+					controllerName : controllerName,
+					validList : targetValue
+				}
+
+				var res = $http.post('/valid', requestJson);
+				res.success(function(data, status, headers, config) {
+					alert(JSON.stringify(data));
+					validData = data;
+				});
+				res.error(function(data, status, headers, config) {
+					// convert Object to String
+					alert("failure message: Unknown Error" + JSON.stringify({
+						data : data
+					}));
+				});
+				alert(JSON.stringify(validData));
+				return {
+					valid : validData
+				};
+			}
+			;
 		} ]);
 memberMode.controller('MemberConfirmController', [ '$scope', '$http',
 		'$window', '$location', 'MemberService',
@@ -51,7 +84,7 @@ memberMode.controller('MemberConfirmController', [ '$scope', '$http',
 				var res = $http.post('/factory/join', $scope.memberData);
 				res.success(function(data, status, headers, config) {
 					if (data.result) {
-						 $window.location.href = "/member/confirm";
+						$window.location.href = "/member/confirm";
 					}
 				});
 			};

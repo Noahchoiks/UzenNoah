@@ -5,6 +5,7 @@ import net.g1project.com.interceptor.CreateG1ViewsInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -37,6 +38,8 @@ public class ApplicationConfigurerAdapter extends WebMvcConfigurerAdapter {
 		registry.addResourceHandler("/static/**")
 		.addResourceLocations("/static/");
 	}
+	
+	
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
@@ -44,8 +47,10 @@ public class ApplicationConfigurerAdapter extends WebMvcConfigurerAdapter {
 		.addPathPatterns("/**")
 		.excludePathPatterns("/static/**")
 		.excludePathPatterns("/factory/**")
+		.excludePathPatterns("/valid/**")
 		.excludePathPatterns("/error/**");
 		super.addInterceptors(registry);
 	}
-
+	
+	
 }

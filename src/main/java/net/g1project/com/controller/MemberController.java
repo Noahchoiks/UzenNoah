@@ -1,7 +1,7 @@
 package net.g1project.com.controller;
 
 import net.g1project.com.constants.G1WebConstants;
-import net.g1project.com.controller.abstact.AbstractG1PageController;
+import net.g1project.com.controller.abstractController.AbstractG1PageController;
 import net.g1project.com.mnv.G1ModelAndView;
 
 import org.springframework.stereotype.Controller;
