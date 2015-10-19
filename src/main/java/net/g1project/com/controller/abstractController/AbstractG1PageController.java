@@ -17,6 +17,10 @@ public class AbstractG1PageController {
 	@Autowired
 	protected DummyService dummyService;
 
+	
+	
+	
+	
 	public ModelAndView createPage(G1ModelAndView g1ModelAndView) {
 		// get ModelMap
 		ModelMap mav = (ModelMap) g1ModelAndView.getModel();

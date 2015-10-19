@@ -41,7 +41,7 @@ public class ValidationUtils {
 		return new ResponseEntity<Map<String, Object>>(getValidateResultMap(voName), HttpStatus.OK);
 	}
 
-	private Map<String, Object> getValidateResultMap(String voName) {
+	public Map<String, Object> getValidateResultMap(String voName) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		Class<?> clazz = getVOClazz(voName);
 		Field[] fields = clazz.getDeclaredFields();

@@ -76,6 +76,7 @@ memberMode.controller('MemberConfirmController', [ '$scope', '$http',
 		function($scope, $http, $window, $location, MemberService) {
 			$scope.memberData = MemberService.memberTemp;
 			$scope.register = function() {
+				alert(JSON.stringify($scope.memberData));
 				var res = $http.post('/factory/join', $scope.memberData);
 				res.success(function(data, status, headers, config) {
 					if (data.result) {

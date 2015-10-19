@@ -1,13 +1,8 @@
 package net.g1project.com.vo;
 
-import java.io.Serializable;
 
-import javax.validation.constraints.Pattern;
+public class MemberVO {
 
-@SuppressWarnings("serial")
-public class MemberVO implements Serializable {
-
-	@Pattern(regexp = "regexp", message = "message")
 	private String id;
 	private String name;
 	private String password;
@@ -44,4 +39,12 @@ public class MemberVO implements Serializable {
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
+
+	@Override
+	public String toString() {
+		return "MemberVO [id=" + id + ", name=" + name + ", password="
+				+ password + ", sex=" + sex + "]";
+	}
+	
+	
 }

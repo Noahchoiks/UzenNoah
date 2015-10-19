@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/valid")
-public class ValidationDataFactory {
+public class ValidationDataFactory extends AbstractDataFactory{
 
 	@Autowired
 	private ReloadableResourceBundleMessageSource properties;

@@ -48,4 +48,13 @@ public class ValidateInfoVO {
 		this.required = required;
 	}
 
+	@Override
+	public String toString() {
+		return "ValidateInfoVO [pattern=" + pattern + ", message=" + message
+				+ ", maxLength=" + maxLength + ", minLength=" + minLength
+				+ ", required=" + required + "]";
+	}
+	
+	
+
 }

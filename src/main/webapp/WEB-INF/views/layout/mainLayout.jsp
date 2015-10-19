@@ -13,6 +13,7 @@
 	<!-- Common -->
 	<script src="https://code.angularjs.org/1.4.7/angular.js"></script>
 	<script src="https://code.angularjs.org/1.4.7/angular-route.js"></script>
+	<script src="https://code.angularjs.org/1.4.7/angular-messages.js"></script>
 	
 	<!-- CSS Layer -->
 	<link rel="stylesheet"
