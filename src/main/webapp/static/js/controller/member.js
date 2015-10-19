@@ -85,9 +85,17 @@ memberMode.controller('MemberConfirmController', [ '$scope', '$http',
 				alert(JSON.stringify($scope.memberData));
 				var res = $http.post('/factory/join', $scope.memberData);
 				res.success(function(data, status, headers, config) {
+					alert(JSON.stringify(data));
 					if (data.result) {
 						$window.location.href = "/member/confirm";
 					}
+				});
+				res.error(function(data, status, headers, config) {
+					// convert Object to String
+					alert("failure message: Unknown Error"
+							+ JSON.stringify({
+								data : data
+							}));
 				});
 			};
 			$scope.back = function() {

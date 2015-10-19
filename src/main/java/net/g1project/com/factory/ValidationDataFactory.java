@@ -2,6 +2,8 @@ package net.g1project.com.factory;
 
 import java.util.Map;
 
+import net.g1project.com.constants.G1ValidationConstants;
+import net.g1project.com.factory.abstractFactory.AbstractDataFactory;
 import net.g1project.com.utils.ValidationUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +33,17 @@ public class ValidationDataFactory extends AbstractDataFactory{
 	@RequestMapping(value = "/{voName}", method = RequestMethod.GET)
 	public ResponseEntity<Map<String, Object>> getValidInfomation(
 			@PathVariable String voName) {
-		return validationUtils.getValidDataToResponseEntity(voName);
+		
+		String voNameWithPackage = G1ValidationConstants.V_VO_PACKAGE
+		+ G1ValidationConstants.V_DEPTH_SEPARATOR + voName;
+		Class<?> clazz = null;
+		try {
+			clazz = Class.forName(voNameWithPackage);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return validationUtils.getValidDataToResponseEntity(clazz);
 	}
 
 	

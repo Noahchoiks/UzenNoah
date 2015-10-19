@@ -3,13 +3,17 @@ package net.g1project.com.factory;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import net.g1project.com.service.DummyService;
+import net.g1project.com.validator.MemberG1Validator;
 import net.g1project.com.vo.MemberVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.json.JsonParser;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +28,9 @@ public class MemberDataFactory {
 
 	@Autowired
 	private JsonParser jsonParser;
+
+	@Autowired
+	private MemberG1Validator validator;
 
 	@ResponseBody
 	@RequestMapping(value = "/memberInfo", method = RequestMethod.GET)
@@ -45,19 +52,20 @@ public class MemberDataFactory {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/join", method = RequestMethod.POST,
-	produces="application/json",
-	consumes = "application/json")
-	public Map<String, Object> join(@ModelAttribute MemberVO memberTemp) {
-
-		System.out.println("member : " + memberTemp.toString());
-		System.out.println(memberTemp.getId());
+	@RequestMapping(value = "/join", method = RequestMethod.POST)
+	public MemberVO join(@RequestBody MemberVO memberTemp,
+			BindingResult result) {
 		// boolean result = dummyService.setDummyData(memberDetail);
-
+		
+		
+		validator.setUseAddValidate(true);
+		validator.validate(memberTemp, result);
+		
+		System.out.println(result.hasErrors());
 		Map<String, Object> responseJson = new HashMap<String, Object>();
-		responseJson.put("result", false);
+		responseJson.put("result", true);
 
-		return responseJson;
+		return memberTemp;
 	}
 
 }

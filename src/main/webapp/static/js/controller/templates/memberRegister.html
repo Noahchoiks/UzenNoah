@@ -4,21 +4,28 @@
 		<h1>Members Join !</h1>
 	</div>
 	<div class="panel-body">
-		<form name="myForm" class="form-horizontal" ng-submit="onSubmit(myForm)">
+		<form name="myForm" class="form-horizontal"
+			ng-submit="onSubmit(myForm)">
 			<div class="form-group">
 				<label class="col-sm-2 control-label">ID:</label>
 				<div class="col-sm-10">
 					<input name="id" type="email" ng-model="memberTemp.id"
 						placeholder="Your email ID" ng-required="valid.id.required">
-					<span class="error" ng-show="!myForm.id.$valid">{{valid.id.message}}</span>
+					<span class="error" ng-show="!myForm.id.$valid">{{valid.id.requiredMessage}}</span>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Name: </label>
 				<div class="col-sm-10">
 					<input name="name" type="text" ng-model="memberTemp.name"
-						placeholder="Your Name" ng-minlength="valid.name.minLength" ng-maxlength="valid.name.maxLength" ng-required="valid.name.required">
-					<span class="error" ng-show="!myForm.name.$valid">{{valid.name.message}}</span>
+						placeholder="Your Name" ng-minlength="valid.name.minLength"
+						ng-maxlength="valid.name.maxLength"
+						ng-required="valid.name.required">
+					<div ng-messages="myForm.name.$error">
+						<p ng-message="minlength">{{valid.name.minLengthMessage}}</p>
+						<p ng-message="maxlength">{{valid.name.maxLengthMessage}}</p>
+						<p ng-message="required">{{valid.name.requiredMessage}}</p>
+					</div>
 				</div>
 			</div>
 			<div class="form-group">
@@ -49,7 +56,8 @@
 			<div class="form-group">
 				<label class="col-sm-2 control-label"></label>
 				<div class="col-sm-10">
-					<input type="submit" data-ng-disabled="!myForm.$valid" id="submit" class="btn" value="Confirm" />
+					<input type="submit" data-ng-disabled="!myForm.$valid" id="submit"
+						class="btn" value="Confirm" />
 				</div>
 			</div>
 		</form>

@@ -34,21 +34,20 @@ public class ValidationUtils {
 			value = "";
 		}
 		return value;
-	}	
-	
-	
-	public ResponseEntity<Map<String, Object>> getValidDataToResponseEntity(String voName) {
-		return new ResponseEntity<Map<String, Object>>(getValidateResultMap(voName), HttpStatus.OK);
 	}
 
-	public Map<String, Object> getValidateResultMap(String voName) {
+	public ResponseEntity<Map<String, Object>> getValidDataToResponseEntity(
+			Class<?> clazz) {
+		return new ResponseEntity<Map<String, Object>>(
+				getValidateResultMap(clazz), HttpStatus.OK);
+	}
+
+	public Map<String, Object> getValidateResultMap(Class<?> clazz) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		Class<?> clazz = getVOClazz(voName);
 		Field[] fields = clazz.getDeclaredFields();
 		for (Field field : fields) {
 			field.setAccessible(true);
-			resultMap.put(field.getName(),
-					getValiInfoVO(voName, field.getName()));
+				resultMap.put(field.getName(),getValiInfoVO(clazz.getSimpleName(), field.getName()));
 		}
 		return resultMap;
 	}
@@ -75,37 +74,30 @@ public class ValidationUtils {
 			ValidateInfoVO validateInfoVO) {
 
 		String value = getValidationProperties(key, null);
+		String valueMessage = getValidationProperties(key
+				+ G1ValidationConstants.V_STATUS_MESSAGE_SUFFIX, null);
 		if (StringUtils.isNotEmpty(value)) {
 			switch (status) {
 			case PATTERN:
 				validateInfoVO.setPattern(value);
+				validateInfoVO.setPatternMessage(valueMessage);
 				break;
 			case MAX_LENGTH:
 				validateInfoVO.setMaxLength(Integer.valueOf(value));
+				validateInfoVO.setMaxLengthMessage(valueMessage);
 				break;
 			case MIN_LENGTH:
 				validateInfoVO.setMinLength(Integer.valueOf(value));
-				break;
-			case MESSAGE:
-				validateInfoVO.setMessage(value);
+				validateInfoVO.setMinLengthMessage(valueMessage);
 				break;
 			case REQUIRED:
 				validateInfoVO.setRequired(Boolean.valueOf(value));
+				validateInfoVO.setRequiredMessage(valueMessage);
 				break;
 			default:
 				// ignore
 				break;
 			}
 		}
-	}
-
-	private Class<?> getVOClazz(String voName) {
-		try {
-			return Class.forName(G1ValidationConstants.V_VO_PACKAGE
-					+ G1ValidationConstants.V_DEPTH_SEPARATOR + voName);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		return null;
 	}
 }

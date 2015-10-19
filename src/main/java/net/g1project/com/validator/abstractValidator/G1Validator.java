@@ -5,6 +5,5 @@ import org.springframework.validation.Validator;
 
 
 public interface G1Validator extends Validator{
-
 	abstract void addValidate(Object target, Errors errors);
 }
