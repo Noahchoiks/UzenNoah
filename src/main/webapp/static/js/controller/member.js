@@ -45,29 +45,35 @@ memberMode.controller('MemberRegisterController', [
 			$scope.memberTemp = memberTemp;
 			$scope.confirmPassword = '';
 
-			$scope.onSubmit = function() {
+			$scope.onSubmit = function(myForm) {
 				var dataObj = {
 					id : memberTemp.id,
 					name : memberTemp.name,
 					password : memberTemp.password,
 					sex : memberTemp.sex
 				};
-				var res = $http.post('/factory/isExistID', dataObj);
-				res.success(function(data, status, headers, config) {
-					if (data.result) {
-						alert("SUCCESS");
-						memberTemp = dataObj;
-						$location.path('/confirm');
-					} else {
-						alert("FAILED : Duplicate ID");
-					}
-				});
-				res.error(function(data, status, headers, config) {
-					// convert Object to String
-					alert("failure message: Unknown Error" + JSON.stringify({
-						data : data
-					}));
-				});
+
+				if (myForm.$valid) {
+					var res = $http.post('/factory/isExistID', dataObj);
+					res.success(function(data, status, headers, config) {
+						if (data.result) {
+							alert("SUCCESS");
+							memberTemp = dataObj;
+							$location.path('/confirm');
+						} else {
+							alert("FAILED : Duplicate ID");
+						}
+					});
+					res.error(function(data, status, headers, config) {
+						// convert Object to String
+						alert("failure message: Unknown Error"
+								+ JSON.stringify({
+									data : data
+								}));
+					});
+				} else {
+					alert("Plz Check your Form Data");
+				}
 			};
 
 		} ]);
