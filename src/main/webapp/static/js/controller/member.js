@@ -1,4 +1,4 @@
-var memberMode = angular.module('memberMode', [ 'ngRoute' ]);
+var memberMode = angular.module('memberMode', [ 'ngRoute','ngMessages' ]);
 
 memberMode.factory('MemberService', function() {
 	return {

@@ -11,7 +11,10 @@
 				<div class="col-sm-10">
 					<input name="id" type="email" ng-model="memberTemp.id"
 						placeholder="Your email ID" ng-required="valid.id.required">
-					<span class="error" ng-show="!myForm.id.$valid">{{valid.id.requiredMessage}}</span>
+					<div ng-messages="myForm.id.$error">
+						<p ng-message="email">Check your Email pattern</p>
+						<p ng-message="required">{{valid.id.requiredMessage}}</p>
+					</div>
 				</div>
 			</div>
 			<div class="form-group">
@@ -33,8 +36,10 @@
 				<div class="col-sm-10">
 					<input name="password" type="password"
 						ng-model="memberTemp.password" placeholder="Your Password"
-						ng-required="valid.password.required"> <span class="error"
-						ng-show="!myForm.password.$valid">{{valid.password.message}}</span>
+						ng-required="valid.password.required">
+					<div ng-messages="myForm.password.$error">
+						<p ng-message="required">{{valid.password.requiredMessage}}</p>
+					</div>
 				</div>
 			</div>
 			<div class="form-group">
@@ -50,7 +55,9 @@
 					<label>Male </label><input type="radio" name="sex"
 						ng-model="memberTemp.sex" value="m"> <label>Female</label><input
 						name="sex" type="radio" ng-model="memberTemp.sex" value="w">
-					<span class="error" ng-show="!myForm.sex.$valid">{{valid.sex.message}}</span>
+					<div ng-messages="myForm.sex.$error">
+						<p ng-message="required">{{valid.sex.requiredMessage}}</p>
+					</div>
 				</div>
 			</div>
 			<div class="form-group">
