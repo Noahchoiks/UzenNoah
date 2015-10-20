@@ -1,4 +1,5 @@
-<div ng-app="invoice1" ng-controller="InvoiceController as invoice">
+
+<!-- <div ng-app="InvoiceModule" ng-controller="InvoiceController as invoice">
   <b>Invoice:</b>
   <div>
     Quantity: <input type="number" min="0" ng-model="invoice.qty" required >
@@ -16,4 +17,11 @@
     </span>
     <button class="btn" ng-click="invoice.pay()">Pay</button>
   </div>
+</div> -->
+<div ng-controller="TestController">
+	<p>{{constant}}</p>
+	<p>{{valmsg}}</p>
+	<p>{{valmsg|GenderFilter}}</p>
+	<p>{{print(this.constructor.name,valmsg)}}</p>
+	<p>{{print(this.constructor.name,valmsg)|GenderFilter}}</p>
 </div>

@@ -1,5 +1,5 @@
-angular.module('invoice1', [])
-.controller('InvoiceController', function() {
+/*
+InvoiceModule.controller('InvoiceController', function() {
   this.qty = 1;
   this.cost = 2;
   this.inCurr = 'EUR';
@@ -19,4 +19,4 @@ angular.module('invoice1', [])
   this.pay = function pay() {
     window.alert("Thanks!");
   };
-});
+});*/

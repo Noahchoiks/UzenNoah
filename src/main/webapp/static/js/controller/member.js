@@ -1,6 +1,6 @@
-var memberMode = angular.module('memberMode', [ 'ngRoute','ngMessages' ]);
 
-memberMode.factory('MemberService', function() {
+
+MemberModule.factory('MemberService', function() {
 	return {
 		memberTemp : {
 			id : 'noah1@noah.com',
@@ -11,7 +11,7 @@ memberMode.factory('MemberService', function() {
 	};
 });
 
-memberMode.service('ValidationService', function($http, $log) {
+MemberModule.service('ValidationService', function($http, $log) {
 	this.getValidInfoForVO = function(voName) {
 		var promise = $http.get('/valid/' + voName).success(
 				function(data, status, headers, config) {
@@ -24,7 +24,7 @@ memberMode.service('ValidationService', function($http, $log) {
 	var validInfos = {};
 });
 
-memberMode.controller('MemberRegisterController', [
+MemberModule.controller('MemberRegisterController', [
 		'$scope',
 		'$http',
 		'$location',
@@ -77,7 +77,7 @@ memberMode.controller('MemberRegisterController', [
 			};
 
 		} ]);
-memberMode.controller('MemberConfirmController', [ '$scope', '$http',
+MemberModule.controller('MemberConfirmController', [ '$scope', '$http',
 		'$window', '$location', 'MemberService',
 		function($scope, $http, $window, $location, MemberService) {
 			$scope.memberData = MemberService.memberTemp;
@@ -92,10 +92,9 @@ memberMode.controller('MemberConfirmController', [ '$scope', '$http',
 				});
 				res.error(function(data, status, headers, config) {
 					// convert Object to String
-					alert("failure message: Unknown Error"
-							+ JSON.stringify({
-								data : data
-							}));
+					alert("failure message: Unknown Error" + JSON.stringify({
+						data : data
+					}));
 				});
 			};
 			$scope.back = function() {
@@ -103,7 +102,7 @@ memberMode.controller('MemberConfirmController', [ '$scope', '$http',
 			};
 		} ]);
 
-memberMode.config(function($routeProvider, $locationProvider) {
+MemberModule.config(function($routeProvider, $locationProvider) {
 	$routeProvider.when('/register', {
 		templateUrl : '../static/js/controller/templates/memberRegister.html',
 		controller : 'MemberRegisterController'

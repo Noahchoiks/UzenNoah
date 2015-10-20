@@ -1,3 +1,3 @@
-<div ng-app="memberMode">
+<div ng-app="MemberModule">
 <div ng-view></div>
 </div>
