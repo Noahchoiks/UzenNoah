@@ -1,16 +1,15 @@
 package net.g1project.com.factory;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.validation.Valid;
 
 import net.g1project.com.service.DummyService;
 import net.g1project.com.validator.MemberG1Validator;
 import net.g1project.com.vo.MemberVO;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.json.JsonParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -53,19 +52,33 @@ public class MemberDataFactory {
 
 	@ResponseBody
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
-	public MemberVO join(@RequestBody MemberVO memberTemp,
-			BindingResult result) {
-		// boolean result = dummyService.setDummyData(memberDetail);
-		
-		
-		validator.setUseAddValidate(true);
-		validator.validate(memberTemp, result);
-		
-		System.out.println(result.hasErrors());
-		Map<String, Object> responseJson = new HashMap<String, Object>();
-		responseJson.put("result", true);
+	public Map<String, Object> join(@RequestBody MemberVO memberTemp,
+			BindingResult resultBinder) {
 
-		return memberTemp;
+		Map<String, Object> responseJson = new HashMap<String, Object>();
+		ObjectMapper objectMapper = new ObjectMapper();
+
+		validator.validate(memberTemp, resultBinder);
+		boolean result = resultBinder.hasErrors();
+		if (result) {
+			responseJson.put("result", !result);
+			responseJson.put("resultMessage", "Server validationError");
+			return responseJson;
+		} 
+		
+		try {
+			result = dummyService.setDummyData(objectMapper
+					.writeValueAsString(memberTemp));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		responseJson.put("result", result);
+		if (result) {
+			responseJson.put("resultMessage", "SUCCESS");
+		}else{
+			responseJson.put("resultMessage", "Server save Error");
+		}
+		return responseJson;
 	}
 
 }

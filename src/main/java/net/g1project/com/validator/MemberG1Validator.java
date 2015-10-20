@@ -9,7 +9,7 @@ import org.springframework.validation.Errors;
 public class MemberG1Validator extends AbstractG1Validator {
 	
 	@Override
-	protected void addValidate(Object target, Errors errors) {
+	public void addValidate(Object target, Errors errors) {
 		System.out.println("Add Validator");
 	}
 }

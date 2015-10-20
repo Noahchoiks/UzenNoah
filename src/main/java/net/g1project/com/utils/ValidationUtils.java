@@ -47,7 +47,7 @@ public class ValidationUtils {
 		Field[] fields = clazz.getDeclaredFields();
 		for (Field field : fields) {
 			field.setAccessible(true);
-				resultMap.put(field.getName(),getValiInfoVO(clazz.getSimpleName(), field.getName()));
+			resultMap.put(field.getName(),getValiInfoVO(clazz.getSimpleName(), field.getName()));
 		}
 		return resultMap;
 	}

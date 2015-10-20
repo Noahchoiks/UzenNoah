@@ -85,7 +85,7 @@ memberMode.controller('MemberConfirmController', [ '$scope', '$http',
 				alert(JSON.stringify($scope.memberData));
 				var res = $http.post('/factory/join', $scope.memberData);
 				res.success(function(data, status, headers, config) {
-					alert(JSON.stringify(data));
+					alert(data.resultMessage);
 					if (data.result) {
 						$window.location.href = "/member/confirm";
 					}
