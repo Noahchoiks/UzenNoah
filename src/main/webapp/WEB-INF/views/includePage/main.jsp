@@ -19,9 +19,11 @@
   </div>
 </div> -->
 <div ng-controller="TestController">
+	<p>{{constantList.TEST_CONSTANT1}}</p>
 	<p>{{constant}}</p>
 	<p>{{valmsg}}</p>
 	<p>{{valmsg|GenderFilter}}</p>
 	<p>{{print(this.constructor.name,valmsg)}}</p>
 	<p>{{print(this.constructor.name,valmsg)|GenderFilter}}</p>
+	<p>{{valid}}</p>
 </div>

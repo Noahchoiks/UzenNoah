@@ -29,15 +29,16 @@ MemberModule.controller('MemberRegisterController', [
 		'$http',
 		'$location',
 		'MemberService',
-		'ValidationService',
+		'ValidationInformationFactory',
+		'TEST_CONSTANT_LIST',
 		function MemberRegisterController($scope, $http, $location,
-				MemberService, ValidationService) {
+				MemberService, ValidationInformationFactory,TEST_CONSTANT_LIST) {
 
-			init();
-			function init() {
-				ValidationService.getValidInfoForVO('MemberVO').then(
-						function(response) {
-							$scope.valid = response.data;
+			getValidInfo();
+			function getValidInfo() {
+				ValidationInformationFactory.getValidInfo(TEST_CONSTANT_LIST.TESTCONTROLLER_VALIDATION_TARGET_VO)
+						.success(function(data) {
+							$scope.valid = data;
 						});
 			}
 			var memberTemp = MemberService.memberTemp;

@@ -23,18 +23,26 @@ BLfilter.filter('GenderFilter', function() {
 
 // FACTORY
 var BLfactory = angular.module('BlueLand.factory', []);
+BLfactory.factory('ValidationInformationFactory', [ '$http', function($http) {
+	var urlBase = '/valid';
+	var dataFactory = {};
+	dataFactory.getValidInfo = function(voName) {
+		return $http.get(urlBase + '/' + voName);
+	};
+	return dataFactory;
+} ]);
 
 // SERVICE
 var BLservice = angular.module('BlueLand.service', []);
 
 // CONSTATANTS
 var BLconstants = angular.module('BlueLand.constatns', []);
-
 BLconstants.constant("TEST_CONSTANT", "constant1 value");
 BLconstants.constant("TEST_CONSTANT_LIST", {
 	"TEST_CONSTANT1" : "constant_list - contstant1 value",
 	"TEST_CONSTANT2" : "constant_list - contstant2 value",
-	"TEST_CONSTANT3" : "constant_list - contstant3 value"
+	"TEST_CONSTANT3" : "constant_list - contstant3 value",
+	"TESTCONTROLLER_VALIDATION_TARGET_VO" : "MemberVO"
 });
 // VALUE
 var BLvalue = angular.module('BlueLand.value', []);
@@ -62,11 +70,23 @@ BLcontroller.controller('TestController', [
 		'ValidationMessageValueService',
 		'PrintValueService',
 		'TEST_CONSTANT',
+		'TEST_CONSTANT_LIST',
+		'ValidationInformationFactory',
 		function($scope, ValidationMessageValueService, PrintValueService,
-				TEST_CONSTANT) {
+				TEST_CONSTANT, TEST_CONSTANT_LIST,ValidationInformationFactory) {
 			$scope.valmsg = ValidationMessageValueService.validationMessage;
 			$scope.print = PrintValueService.print;
 			$scope.constant = TEST_CONSTANT;
+			$scope.constantList = TEST_CONSTANT_LIST;
+
+			getValidInfo();
+			function getValidInfo() {
+				ValidationInformationFactory.getValidInfo(TEST_CONSTANT_LIST.TESTCONTROLLER_VALIDATION_TARGET_VO)
+						.success(function(data) {
+							$scope.valid = data;
+						});
+			}
+
 		} ]);
 
 // <![CDATA[
@@ -78,7 +98,7 @@ BLcontroller.controller('TestController', [
 // Common Modules
 var defaultModules = [ 'BlueLand.service', 'BlueLand.directive',
 		'BlueLand.filter', 'BlueLand.constatns', 'BlueLand.controller',
-		'BlueLand.value', 'ngRoute', 'ngMessages' ];
+		'BlueLand.value', 'BlueLand.factory','ngRoute', 'ngMessages' ];
 
 // Add New Modules for each Page
 var referenceModules = [ 'MemberModule' ];
