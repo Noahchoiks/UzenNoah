@@ -1,0 +1,37 @@
+ spring: 
+     thymeleaf: 
+         cache: false 
+         mode: HTML5
+     datasource:
+         url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+         username: sa
+         password: 
+         driverClassName: org.h2.Driver
+     h2:
+         console:
+               enabled: true
+               path: /h2-console
+     data: 
+         jpa:
+               repositories:
+                            enabled: true
+     jpa:
+         database: H2
+         database-platform: org.hibernate.dialect.H2Dialect
+         show-sql: true
+     devtools:
+         restart:
+               exclude: static/**,public/**,templates/**
+               poll-interval: 1000
+         livereload:
+               enabled: true
+               port: 8080
+               
+ server: 
+     port: 8080
+ logging:
+     level:
+         ROOT: WARN
+         org.apache.http: WARN
+         org.apache.http.headers: WARN
+         net.noah.com: DEBUG
