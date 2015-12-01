@@ -1,6 +1,10 @@
 package net.noah.com.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import net.noah.com.constant.NameConstants;
 import net.noah.com.entity.Member;
 import net.noah.com.repository.MemberRepository;
@@ -29,9 +33,17 @@ public class MainController {
     public String createUsers(Model model, @PathVariable int numbers) throws Exception {
         int lessThan = 10;
         memberRepository.deleteAll();
+
+        // for (int i = 0; i < numbers; i++) {
+        // memberRepository.save(createRandomUser());
+        // }
+
+        // faster than save(T) iterator
+        List<Member> temp = new ArrayList<Member>();
         for (int i = 0; i < numbers; i++) {
-            memberRepository.save(createRandomUser());
+            temp.add(createRandomUser());
         }
+        memberRepository.save(temp);
 
         Iterable<Member> memberList = memberRepository.findAllByMemberNoIsNotNullOrderByAgeDesc();
         model.addAttribute("memberList", memberList);
