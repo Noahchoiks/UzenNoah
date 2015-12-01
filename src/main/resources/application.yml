@@ -1,3 +1,5 @@
+ server: 
+     port: 8001
  spring: 
      thymeleaf: 
          cache: false 
@@ -25,10 +27,6 @@
                poll-interval: 1000
          livereload:
                enabled: true
-               port: 8080
-               
- server: 
-     port: 8080
  logging:
      level:
          ROOT: WARN
