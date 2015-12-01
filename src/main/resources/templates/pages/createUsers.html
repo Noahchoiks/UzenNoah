@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/defaultLayout"
+    xmlns:data="https://github.com/mxab/thymeleaf-extras-data-attribute">
+<head>
+<title th:text="${sampleTitle}"></title>
+</head>
+<body>
+    <div layout:fragment="contents">
+        <div class="row row-centered">
+            <div class="col-xs-4 col-centered">
+                <h2>All Memebers</h2>
+                <hr></hr>
+                <th:block th:each="member : ${memberList}">
+                    <h3 th:text="'Memeber #'+${memberStat.count}"></h3>
+                    <p>First Name : <span th:text="${member.firstName}"></span></p>
+                    <p>Last Name : <span th:text="${member.lastName}"></span></p>
+                    <p>Age : <span th:text="${member.age}"></span></p>
+                </th:block>
+            </div>
+            <div class="col-xs-8 col-centered">
+                <h2 th:text="'Member younger than '+${lessThan}"></h2>
+                <hr></hr>
+                <th:block th:each="member : ${ageLessthanList}">
+                    <h3 th:text="'Memeber #'+${memberStat.count}"></h3>
+                    <p>First Name : <span th:text="${member.firstName}"></span></p>
+                    <p>Last Name : <span th:text="${member.lastName}"></span></p>
+                    <p>Age : <span th:text="${member.age}"></span></p>
+                </th:block>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
