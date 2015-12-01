@@ -31,6 +31,6 @@ public class MainController {
 
         Member returnMember = memberRepository.findOne(1);
         model.addAttribute("member", returnMember.getFirstName());
-        return "index";
+        return "pages/index";
     }
 }

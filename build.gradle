@@ -32,19 +32,24 @@ configurations {
 }
 
 dependencies {
+
+	//APACHE COMMON
+    compile("commons-beanutils:commons-beanutils")
+    compile("commons-collections:commons-collections")
 	compile('commons-io:commons-io:2.4')
 	compile('commons-lang:commons-lang:2.1')
-    // compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.0'
+
+	//SPRING BOOT
     compile('org.springframework.boot:spring-boot-devtools')
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-data-rest")    
     compile("org.springframework.boot:spring-boot-starter-data-jpa")    
-    //compile('org.springframework.boot:spring-boot-starter-jdbc')
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+
+	//TOMCAT(BOOT)
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
-    //providedRuntime("org.apache.tomcat.embed:tomcat-embed-jasper")
-    //providedRuntime("org.apache.tomcat.embed:tomcat-embed-el")
-    //compile("javax.servlet:jstl")    
+
+	//H2 DB
     runtime('com.h2database:h2')
 }
 

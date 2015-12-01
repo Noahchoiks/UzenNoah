@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:data="https://github.com/mxab/thymeleaf-extras-data-attribute" >
+<head>
+<!-- Title -->
+<title layout:title-pattern="$CONTENT_TITLE :: $DECORATOR_TITLE">Blueland</title>
+<th:block th:include="/layout/head/script::mainScript"></th:block>
+<th:block th:include="/layout/head/meta::mainMeta"></th:block>
+</head>
+<body>
+    <div class="container">
+        <div class="header clearfix">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation" th:attrappend="class=active"><a th:href="@{/}" th:text="#{defaultLayout.nav.home.title}"></a></li>
+                    <!-- <li role="presentation" th:attrappend="class=${#httpServletRequest.requestURI}=='/test/sampleContents'?'active':''"><a th:href="@{/test/sampleContents?displayCount=5}" th:text="#{defaultLayout.nav.sample.title}"></a></li>
+                    <li role="presentation" th:attrappend="class=${#httpServletRequest.requestURI}=='/test/developers'?'active':''"><a th:href="@{/test/developers}" th:text="#{defaultLayout.nav.developers.title}"></a></li> -->
+                </ul>
+            </nav>
+            <h3 class="text-muted" th:text="#{defaultLayout.project.name}"></h3>
+        </div>
+        <!-- Contents -->
+        <th:block layout:fragment="contents">
+        </th:block>
+        <footer class="footer">
+            <p th:utext="#{defaultLayout.footer.description}"></p>
+        </footer>
+    </div>
+    <!-- /container -->
+</body>
+</html>
