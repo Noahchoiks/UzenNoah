@@ -5,9 +5,13 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import net.noah.com.constant.NameConstants;
 import net.noah.com.entity.Address;
 import net.noah.com.entity.Member;
+import net.noah.com.entity.QMember;
 import net.noah.com.repository.AddressRepository;
 import net.noah.com.repository.MemberRepository;
 
@@ -22,6 +26,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mysema.query.jpa.impl.JPAQuery;
+
 @Controller
 public class MainController {
     public Logger logger = LoggerFactory.getLogger(getClass());
@@ -32,9 +38,21 @@ public class MainController {
     @Autowired
     AddressRepository addressRepository;
 
+    @PersistenceContext
+    EntityManager entityManager;
+
     @RequestMapping(value = "/", method = { GET })
     public String main(Model model) throws Exception {
         return "pages/index";
+    }
+
+    @RequestMapping(value = "/entity", method = { GET })
+    public String entity(Model model) throws Exception {
+        QMember member = QMember.member;
+        JPAQuery jpaQuery = new JPAQuery(entityManager);
+        List<Member> memberList = jpaQuery.from(member).list(QMember.member);
+        model.addAttribute("memberList", memberList);
+        return "pages/entity";
     }
 
     @RequestMapping(value = "/createUsers/{numbers}", method = { GET })
@@ -44,14 +62,12 @@ public class MainController {
         // for (int i = 0; i < numbers; i++) {
         // memberRepository.save(createRandomUser());
         // }
-
         // faster than save(T) iterator
         List<Member> temp = new ArrayList<Member>();
         for (int i = 0; i < numbers; i++) {
             temp.add(createRandomUser());
         }
         memberRepository.save(temp);
-
         Iterable<Member> memberList = memberRepository.findAllByMemberNoIsNotNullOrderByAgeDesc();
         model.addAttribute("memberList", memberList);
 
@@ -68,7 +84,6 @@ public class MainController {
         Page<Member> memberList = memberRepository.findAll(new PageRequest(pageNo, size));
 
         model.addAttribute("memberList", memberList);
-
         return "pages/memberList";
     }
 

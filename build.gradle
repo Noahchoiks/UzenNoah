@@ -10,6 +10,7 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("com.mysema.querydsl:querydsl-apt:${queryDSLVersion}")
     }
 }
 
@@ -26,6 +27,14 @@ jar {
 repositories {
     maven { url "http://repo.spring.io/libs-milestone" }
     mavenCentral()    
+}
+
+sourceSets {
+    generated {
+        java {
+            srcDirs = ['src/main/generated']
+        }
+    }
 }
 
 configurations {
@@ -50,13 +59,39 @@ dependencies {
 
 	//QUERYDSL
 	compile("com.mysema.querydsl:querydsl-jpa:${queryDSLVersion}")
-	querydslapt("com.mysema.querydsl:querydsl-jpa:${queryDSLVersion}")
+	compile("com.mysema.querydsl:querydsl-apt:${queryDSLVersion}")
+	//querydslapt("com.mysema.querydsl:querydsl-apt:${queryDSLVersion}")
 
 	//TOMCAT(BOOT)
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 
 	//H2 DB
     runtime('com.h2database:h2')
+}
+
+task generateQueryDSL(type: JavaCompile, group: 'build', description: 'Generates the QueryDSL query types') {
+    source = sourceSets.main.java
+    classpath = configurations.compile + configurations.querydslapt
+    options.compilerArgs = [
+            "-proc:only",
+            "-processor", "com.mysema.query.apt.jpa.JPAAnnotationProcessor"
+    ]
+    destinationDir = sourceSets.generated.java.srcDirs.iterator().next()
+}
+
+compileJava {
+    dependsOn generateQueryDSL
+    source generateQueryDSL.destinationDir
+}
+
+compileGeneratedJava {
+    dependsOn generateQueryDSL
+    options.warnings = false
+    classpath += sourceSets.main.runtimeClasspath
+}
+
+clean {
+    delete sourceSets.generated.java.srcDirs
 }
 
 eclipse {
