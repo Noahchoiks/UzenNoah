@@ -1,8 +1,12 @@
 package net.noah.com.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Member {
@@ -14,6 +18,10 @@ public class Member {
     private String lastName;
     private int age;
     private boolean memberYn;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "addressNo")
+    private Address address;
 
     public int getMemberNo() {
         return memberNo;
@@ -53,6 +61,14 @@ public class Member {
 
     public void setMemberYn(boolean memberYn) {
         this.memberYn = memberYn;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override

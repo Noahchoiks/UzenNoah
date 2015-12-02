@@ -3,8 +3,9 @@ package net.noah.com.repository;
 import net.noah.com.entity.Member;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface MemberRepository extends CrudRepository<Member, Integer> {
+public interface MemberRepository extends PagingAndSortingRepository<Member, Integer>, CrudRepository<Member, Integer> {
     long countByLastName(String lastname);
 
     Iterable<Member> findAllByMemberNoIsNotNullOrderByAgeDesc();
@@ -12,5 +13,4 @@ public interface MemberRepository extends CrudRepository<Member, Integer> {
     Iterable<Member> findByAgeLessThan(int lessThan);
 
     Iterable<Member> findByAgeLessThanOrderByAgeDesc(int lessThan);
-
 }

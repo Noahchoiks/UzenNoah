@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/defaultLayout"
+    xmlns:data="https://github.com/mxab/thymeleaf-extras-data-attribute">
+<head>
+<title th:text="${sampleTitle}"></title>
+</head>
+<body>
+    <div layout:fragment="contents">
+        <div class="row row-centered">
+            <div class="col-xs-4 col-centered">
+                <h2>Page Information</h2>
+                <hr></hr>
+                <p>
+                    Total Page : <span th:text="${memberList.totalPages}"></span>
+                </p>
+                <p>
+                    Current Page : <span th:text="${memberList.number}+1"></span>
+                </p>
+                <p>
+                    Item per Page : <span th:text="${memberList.numberOfElements}"></span>
+                </p>
+            </div>
+            <div class="col-xs-8 col-centered">
+                <h2 th:text="'Member List'"></h2>
+                <hr></hr>
+                <th:block th:each="member : ${memberList}">
+                    <h3 th:text="'Member #'+${member.memberNo}"></h3>
+                    <p>
+                        First Name : <span th:text="${member.firstName}"></span>
+                    </p>
+                    <p>
+                        Last Name : <span th:text="${member.lastName}"></span>
+                    </p>
+                    <p>
+                        Age : <span th:text="${member.age}"></span>
+                    </p>
+                </th:block>
+                <th:block th:if="${memberList.numberOfElements == 0}">
+                    <p>No Members</p>
+                </th:block>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -13,9 +13,18 @@
                 <hr></hr>
                 <th:block th:each="member : ${memberList}">
                     <h3 th:text="'Memeber #'+${memberStat.count}"></h3>
-                    <p>First Name : <span th:text="${member.firstName}"></span></p>
-                    <p>Last Name : <span th:text="${member.lastName}"></span></p>
-                    <p>Age : <span th:text="${member.age}"></span></p>
+                    <p>
+                        First Name : <span th:text="${member.firstName}"></span>
+                    </p>
+                    <p>
+                        Last Name : <span th:text="${member.lastName}"></span>
+                    </p>
+                    <p>
+                        Age : <span th:text="${member.age}"></span>
+                    </p>
+                    <p>
+                        zipCode : <span th:text="${member.address.zipCodeNo1}+'-'+${member.address.zipCodeNo2}"></span>
+                    </p>
                 </th:block>
             </div>
             <div class="col-xs-8 col-centered">
@@ -23,9 +32,15 @@
                 <hr></hr>
                 <th:block th:each="member : ${ageLessthanList}">
                     <h3 th:text="'Memeber #'+${memberStat.count}"></h3>
-                    <p>First Name : <span th:text="${member.firstName}"></span></p>
-                    <p>Last Name : <span th:text="${member.lastName}"></span></p>
-                    <p>Age : <span th:text="${member.age}"></span></p>
+                    <p>
+                        First Name : <span th:text="${member.firstName}"></span>
+                    </p>
+                    <p>
+                        Last Name : <span th:text="${member.lastName}"></span>
+                    </p>
+                    <p>
+                        Age : <span th:text="${member.age}"></span>
+                    </p>
                 </th:block>
             </div>
         </div>
