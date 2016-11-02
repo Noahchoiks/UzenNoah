@@ -149,14 +149,6 @@ gradle-app.setting
 # Cache of project
 .gradletasknamecache
 
-### ECP Added ignores ###
+### added ignores ###
 rebel.xml
-/classes
-/ecp-biz-basics/src/test/resources/properties/custom.properties
-/ecp-service-facade/src/test/resources/properties/custom.properties
-/ecp-bo-web/src/main/resources/properties/custom.properties
-/ecp-batch-web/src/main/resources/properties/custom.properties
-/ecp-bo-web/src/main/resources/properties/application_test-push.properties
-/ecp-batch-web/src/main/resources/properties/application_test-push.properties
-/ecp-biz-interface/src/test/resources/properties/custom.properties
 build-info.properties
