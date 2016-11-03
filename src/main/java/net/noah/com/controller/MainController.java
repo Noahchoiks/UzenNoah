@@ -1,17 +1,8 @@
 package net.noah.com.controller;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import net.noah.com.constant.NameConstants;
 import net.noah.com.entity.Address;
 import net.noah.com.entity.Member;
-import net.noah.com.entity.QMember;
 import net.noah.com.repository.AddressRepository;
 import net.noah.com.repository.MemberRepository;
 
@@ -26,7 +17,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mysema.query.jpa.impl.JPAQuery;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @Controller
 public class MainController {
@@ -48,10 +45,10 @@ public class MainController {
 
     @RequestMapping(value = "/entity", method = { GET })
     public String entity(Model model) throws Exception {
-        QMember member = QMember.member;
-        JPAQuery jpaQuery = new JPAQuery(entityManager);
-        List<Member> memberList = jpaQuery.from(member).list(QMember.member);
-        model.addAttribute("memberList", memberList);
+//        QMember member = QMember.member;
+//        JPAQuery jpaQuery = new JPAQuery(entityManager);
+//        List<Member> memberList = jpaQuery.from(member).list(QMember.member);
+//        model.addAttribute("memberList", memberList);
         return "pages/entity";
     }
 
