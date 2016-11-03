@@ -49,6 +49,7 @@ public class MainController {
 //        JPAQuery jpaQuery = new JPAQuery(entityManager);
 //        List<Member> memberList = jpaQuery.from(member).list(QMember.member);
 //        model.addAttribute("memberList", memberList);
+        //
         return "pages/entity";
     }
 
